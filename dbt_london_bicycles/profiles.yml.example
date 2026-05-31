@@ -1,0 +1,15 @@
+london_bicycles:
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: vocal-gist-496900-j8
+      dataset: london_bicycles_analytics
+      location: EU
+      threads: 1
+      priority: interactive
+      job_execution_timeout_seconds: 300
+      job_retries: 2
+  target: dev
+  config:
+    send_anonymous_usage_stats: false

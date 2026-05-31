@@ -1,0 +1,8 @@
+dbt-bigquery
+google-cloud-bigquery
+pandas
+sqlalchemy
+pybigquery
+matplotlib
+seaborn
+jupyter

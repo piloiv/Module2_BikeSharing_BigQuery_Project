@@ -1,0 +1,15 @@
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+target/
+dbt_packages/
+logs/
+profiles.yml
+dbt_london_bicycles/.user.yml
+outputs/
+slides/artifact-build-manifest.json
+test_*.png
+*.pyc
+*.log

@@ -1,0 +1,74 @@
+version: 2
+
+models:
+  - name: stg_cycle_hire
+    description: Cleaned trip-level records from the public London Bicycles cycle_hire table.
+    columns:
+      - name: rental_id
+        tests:
+          - not_null
+          - unique
+      - name: start_at
+        tests:
+          - not_null
+      - name: duration_seconds
+        tests:
+          - not_null:
+              config:
+                severity: warn
+      - name: start_station_id
+        tests:
+          - not_null:
+              config:
+                severity: warn
+
+  - name: stg_cycle_stations
+    description: Cleaned station reference records from the public London Bicycles cycle_stations table.
+    columns:
+      - name: station_id
+        tests:
+          - not_null
+          - unique
+      - name: station_name
+        tests:
+          - not_null
+
+  - name: dim_station
+    description: Station dimension used for operational and geographic analysis.
+    columns:
+      - name: station_id
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_date
+    description: Calendar dimension generated from the trip date range.
+    columns:
+      - name: date_key
+        tests:
+          - not_null
+          - unique
+
+  - name: fact_trip
+    description: Analysis-ready trip fact table.
+    columns:
+      - name: rental_id
+        tests:
+          - not_null
+          - unique
+      - name: start_station_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_station')
+                field: station_id
+              config:
+                severity: warn
+      - name: end_station_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_station')
+                field: station_id
+              config:
+                severity: warn
